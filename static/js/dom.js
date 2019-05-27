@@ -1,5 +1,5 @@
 // It uses data_handler.js to visualize elements
-import { dataHandler } from "./data_handler.js";
+import {dataHandler} from "./data_handler.js";
 
 export let dom = {
     _appendToElement: function (elementToExtend, textToAppend, prepend = false) {
@@ -20,9 +20,14 @@ export let dom = {
     init: function () {
         // This function should run once, when the page is loaded.
     },
+    clearBoards: function () {
+        let boardsDiv = document.querySelector("#boards");
+        boardsDiv.textContent = "";
+    },
     loadBoards: function () {
         // retrieves boards and makes showBoards called
-        dataHandler.getBoards(function(boards){
+        dataHandler.getBoards(boards => {
+            this.clearBoards();
             dom.showBoards(boards);
         });
     },
@@ -32,7 +37,7 @@ export let dom = {
 
         let boardList = '';
 
-        for(let board of boards){
+        for (let board of boards) {
             boardList += `
                 <li>${board.title}</li>
             `;
