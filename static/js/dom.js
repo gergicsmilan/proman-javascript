@@ -29,6 +29,9 @@ export let dom = {
         dataHandler.getBoards(boards => {
             this.clearBoards();
             dom.showBoards(boards);
+            for(let board of boards) {
+                dom.loadCards(parseInt(board.id));
+            }
         });
     },
     showBoards: function (boards) {
@@ -53,10 +56,17 @@ export let dom = {
     },
     loadCards: function (boardId) {
         // retrieves cards and makes showCards called
+
+        console.log(boardId);
+        dataHandler.getCardsByBoardId(boardId, dom.showCards);
+
     },
     showCards: function (cards) {
         // shows the cards of a board
         // it adds necessary event listeners also
+        for (let card of cards) {
+            console.log(card);
+        }
     },
     // here comes more features
 };

@@ -29,3 +29,13 @@ def get_cards(cursor):
 
     cards = cursor.fetchall()
     return cards
+
+@connection.connection_handler
+def get_cards_for_board(cursor, board_id):
+    cursor.execute("""SELECT id, board_id, title, status_id, card_order FROM card
+                        WHERE board_id = %(board_id)s;
+                        """,
+                        {'board_id': board_id})
+
+    cards = cursor.fetchall()
+    return cards
