@@ -32,6 +32,16 @@ def get_cards_for_board(board_id):
     """
     return data_handler.get_cards_for_board(board_id)
 
+@app.route("/get-cards")
+@json_response
+def get_cards():
+    """
+    All cards that belongs to a board
+    :param board_id: id of the parent board
+    """
+    return data_handler.get_cards()
+
+
 
 def main():
     app.run(debug=True)

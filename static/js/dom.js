@@ -20,53 +20,50 @@ export let dom = {
     init: function () {
         // This function should run once, when the page is loaded.
     },
-    clearBoards: function () {
-        let boardsDiv = document.querySelector("#boards");
-        boardsDiv.textContent = "";
-    },
     loadBoards: function () {
         // retrieves boards and makes showBoards called
         dataHandler.getBoards(boards => {
-            this.clearBoards();
             dom.showBoards(boards);
-            for(let board of boards) {
-                dom.loadCards(parseInt(board.id));
-            }
         });
     },
     showBoards: function (boards) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
 
-        let boardList = '';
-
+        let boardContainer = document.querySelector('.board-container');
         for (let board of boards) {
-            boardList += `
-                <li>${board.title}</li>
-            `;
+            const template = document.querySelector('#board-template');
+            const clone = document.importNode(template.content, true);
+            let columns = clone.querySelectorAll('.board-column-content');
+            for (let column of columns) {
+                column.setAttribute("data-board-id", board.id);
+            }
+            clone.querySelector('.board').setAttribute("id", board.id);
+            clone.querySelector('.board-title').innerHTML = board.title;
+            boardContainer.appendChild(clone);
+            dom.loadCards(parseInt(board.id));
         }
-
-        const outerHtml = `
-            <ul class="board-container">
-                ${boardList}
-            </ul>
-        `;
-
-        this._appendToElement(document.querySelector('#boards'), outerHtml);
     },
     loadCards: function (boardId) {
         // retrieves cards and makes showCards called
-
-        console.log(boardId);
         dataHandler.getCardsByBoardId(boardId, dom.showCards);
 
     },
-    showCards: function (cards) {
-        // shows the cards of a board
-        // it adds necessary event listeners also
-        for(let card of cards) {
-            console.log(card);
+    showCards: function (cards, boardId) {
+
+        let cardContainer = document.querySelectorAll('.board-column-content');
+
+        for (let card of cards) {
+            if (parseInt(boardId) === parseInt(card.board_id)) {
+                for (let column of cardContainer) {
+                    if (parseInt(card.status_id) === parseInt(column.id) && parseInt(card.board_id) === parseInt(column.dataset.boardId)) {
+                        const template = document.querySelector('#cards-template');
+                        const clone = document.importNode(template.content, true);
+                        clone.querySelector('.card-title').textContent = card.title;
+                        column.appendChild(clone);
+                    }
+                }
+            }
         }
     },
-    // here comes more features
 };
