@@ -21,3 +21,8 @@ def get_boards():
 
 def get_cards_for_board(board_id):
     return persistence.get_cards_for_board(board_id)
+
+
+def get_cards():
+
+    return persistence.get_cards()

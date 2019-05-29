@@ -39,3 +39,12 @@ def get_cards_for_board(cursor, board_id):
 
     cards = cursor.fetchall()
     return cards
+
+@connection.connection_handler
+def get_cards(cursor):
+    cursor.execute("""SELECT id, board_id, title, status_id, card_order FROM card;
+                        """)
+
+    cards = cursor.fetchall()
+    print(cards)
+    return cards
