@@ -28,29 +28,21 @@ export let dom = {
     },
     boardToggleClicked: function () {
         const board = this.closest('section.board').querySelector('.board-columns');
-
         board.classList.toggle('hidden');
     },
     showBoards: function (boards) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
 
-        let boardContainer = document.querySelector('.board-container');
-        for (let board of boards) {
-
+        const boardContainer = document.querySelector('.board-container');
+        for (const board of boards) {
             const template = document.querySelector('#board-template');
             const clone = document.importNode(template.content, true);
-            let columns = clone.querySelectorAll('.board-column-content');
-            for (let column of columns) {
-                column.setAttribute("data-board-id", board.id);
-            }
-
+            clone.querySelectorAll('.board-column-content').forEach(column => column.dataset.boardId = board.id);
 
             clone.querySelector('.board-title').innerHTML = board.title;
             clone.querySelector('.board-add').setAttribute("id", board.id);
-
-            let toggleBoardButton = clone.querySelector(".board-toggle");
-            toggleBoardButton.addEventListener('click', dom.boardToggleClicked);
+            clone.querySelector(".board-toggle").addEventListener('click', dom.boardToggleClicked);
 
             boardContainer.appendChild(clone);
             dom.loadCards(parseInt(board.id));
