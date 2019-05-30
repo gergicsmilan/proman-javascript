@@ -67,3 +67,15 @@ def add_new_card(cursor, card_title, board_id, status_id):
                    {'card_title': card_title,
                     'board_id': board_id,
                     'status_id': status_id})
+
+
+@connection.connection_handler
+def delete_board(cursor, board_id):
+    cursor.execute("""
+                   DELETE FROM card
+                   WHERE board_id = %(board_id)s;
+                   
+                   DELETE FROM board
+                   WHERE id = %(board_id)s;
+                   """,
+                   {'board_id': board_id})
