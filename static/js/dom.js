@@ -24,7 +24,8 @@ export let dom = {
         // retrieves boards and makes showBoards called
         dataHandler.getBoards(boards => {
             dom.showBoards(boards);
-        });
+    })
+        ;
     },
     showBoards: function (boards) {
         // shows boards appending them to #boards div
@@ -41,6 +42,7 @@ export let dom = {
             clone.querySelector('.board-title').innerHTML = board.title;
             boardContainer.appendChild(clone);
             dom.loadCards(parseInt(board.id));
+            dom.deleteBoardButtons();
         }
     },
     loadCards: function (boardId) {
@@ -72,12 +74,23 @@ export let dom = {
             dataHandler.createNewBoard('board', dom.showNewBoard);
         })
     },
-    showNewBoard: function(response){
+    showNewBoard: function (response) {
 
         let boardContainer = document.querySelector('.board-container');
-            const template = document.querySelector('#board-template');
-            const clone = document.importNode(template.content, true);
-            clone.querySelector('.board-title').innerHTML = response.title;
-            boardContainer.appendChild(clone);
+        const template = document.querySelector('#board-template');
+        const clone = document.importNode(template.content, true);
+        clone.querySelector('.board-title').innerHTML = response.title;
+        boardContainer.appendChild(clone);
+        dom.deleteBoardButtons();
+    },
+    deleteBoardButtons: function () {
+
+        let deleteBoardButtons = document.querySelectorAll('.board-delete');
+        console.log(deleteBoardButtons);
+        for (let button of deleteBoardButtons) {
+            button.addEventListener('click', function () {
+                dataHandler.deleteBoardById()
+            })
+        }
     }
 };
