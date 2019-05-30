@@ -21,7 +21,6 @@ export let dom = {
         // This function should run once, when the page is loaded.
     },
     loadBoards: function () {
-        // retrieves boards and makes showBoards called
         dataHandler.getBoards(boards => {
             dom.showBoards(boards);
         });
@@ -31,10 +30,6 @@ export let dom = {
         board.classList.toggle('hidden');
     },
     showBoards: function (boards) {
-        // shows boards appending them to #boards div
-        // it adds necessary event listeners also
-
-
         const boardContainer = document.querySelector('.board-container');
         boardContainer.textContent = '';
         for (const board of boards) {
@@ -51,12 +46,9 @@ export let dom = {
         }
     },
     loadCards: function (boardId) {
-        // retrieves cards and makes showCards called
         dataHandler.getCardsByBoardId(boardId, dom.showCards);
-
     },
     showCards: function (cards, boardId) {
-
         dom.addNewCard(boardId);
         let cardContainer = document.querySelectorAll('.board-column-content');
 
@@ -74,21 +66,18 @@ export let dom = {
         }
     },
     addNewBoard: function () {
-
-        let addBoardButton = document.querySelector("#add-new-board");
+        let addBoardButton = document.querySelector("#add-new-board-btn");
         addBoardButton.addEventListener('click', function () {
             dataHandler.createNewBoard('board', dom.showNewBoard);
         })
     },
     showNewBoard: function (response) {
-
         let boardContainer = document.querySelector('.board-container');
 
         const template = document.querySelector('#board-template');
         const clone = document.importNode(template.content, true);
         clone.querySelector('.board-title').innerHTML = response.title;
         boardContainer.appendChild(clone);
-
     },
     addNewCard: function (boardId) {
         let addNewCardButtons = document.querySelectorAll(".board-add");
@@ -101,7 +90,6 @@ export let dom = {
         }
     },
     showNewCard: function (response) {
-        //let boardId = response.board_id;
         let columns = document.querySelectorAll('.board-column-content');
 
         for (let column of columns) {
@@ -114,7 +102,6 @@ export let dom = {
                 column.appendChild(clone);
             }
         }
-
     },
     deleteBoard: function (boardId) {
 
