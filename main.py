@@ -50,6 +50,7 @@ def post_new_board():
     data_handler.add_board(response_data['title'])
     return response_data
 
+
 @app.route('/post-new-card', methods=['POST', 'GET'])
 @json_response
 def post_new_card():
