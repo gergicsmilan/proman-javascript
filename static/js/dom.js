@@ -88,10 +88,6 @@ export let dom = {
         clone.querySelector('.board-title').innerHTML = response.title;
         boardContainer.appendChild(clone);
 
-        const template = document.querySelector('#board-template');
-        const clone = document.importNode(template.content, true);
-        clone.querySelector('.board-title').innerHTML = response.title;
-        boardContainer.appendChild(clone);
     },
     addNewCard: function (boardId) {
         let addNewCardButtons = document.querySelectorAll(".board-add");
