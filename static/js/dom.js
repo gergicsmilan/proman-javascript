@@ -26,6 +26,11 @@ export let dom = {
             dom.showBoards(boards);
         });
     },
+    boardToggleClicked: function () {
+        const board = this.closest('section.board').querySelector('.board-columns');
+
+        board.classList.toggle('hidden');
+    },
     showBoards: function (boards) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
@@ -43,20 +48,12 @@ export let dom = {
 
             clone.querySelector('.board-title').innerHTML = board.title;
             clone.querySelector('.board-add').setAttribute("id", board.id);
+
+            let toggleBoardButton = clone.querySelector(".board-toggle");
+            toggleBoardButton.addEventListener('click', dom.boardToggleClicked);
+
             boardContainer.appendChild(clone);
             dom.loadCards(parseInt(board.id));
-            let toggleBoardButtons = document.getElementsByClassName("board-toggle");
-            let togbor = toggleBoardButtons[0];
-            togbor.addEventListener('click', function () {
-                let boardS = document.getElementsByClassName("board-columns")
-                let boardToToggle = boardS[0];
-                if (boardToToggle.style.display === "none") {
-                    boardToToggle.style.display = "block";
-                } else {
-                    boardToToggle.style.display = "none";
-                }
-                console.log('toggle');
-            });
         }
     },
     loadCards: function (boardId) {
@@ -98,19 +95,19 @@ export let dom = {
         clone.querySelector('.board-title').innerHTML = response.title;
         boardContainer.appendChild(clone);
 
-            const template = document.querySelector('#board-template');
-            const clone = document.importNode(template.content, true);
-            clone.querySelector('.board-title').innerHTML = response.title;
-            boardContainer.appendChild(clone);
+        const template = document.querySelector('#board-template');
+        const clone = document.importNode(template.content, true);
+        clone.querySelector('.board-title').innerHTML = response.title;
+        boardContainer.appendChild(clone);
     },
     addNewCard: function (boardId) {
         let addNewCardButtons = document.querySelectorAll(".board-add");
         for (let button of addNewCardButtons) {
             if (parseInt(button.id) === parseInt(boardId)) {
                 button.addEventListener('click', function () {
-                dataHandler.createNewCard("New Card", boardId, 0, dom.showNewCard);
-            });
-        }
+                    dataHandler.createNewCard("New Card", boardId, 0, dom.showNewCard);
+                });
+            }
         }
     },
     showNewCard: function (response) {
