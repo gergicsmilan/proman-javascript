@@ -38,7 +38,7 @@ export let dom = {
             for (let column of columns) {
                 column.setAttribute("data-board-id", board.id);
             }
-            clone.querySelector('.board').setAttribute("id", board.id);
+            //clone.querySelector('.board').setAttribute("id", board.id);
             clone.querySelector('.board-title').innerHTML = board.title;
             boardContainer.appendChild(clone);
             dom.loadCards(parseInt(board.id));
