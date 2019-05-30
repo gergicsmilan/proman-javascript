@@ -23,7 +23,7 @@ export let dataHandler = {
 
         return fetch(url, {
             method: 'POST',
-            mode: 'cors',
+            dataType: 'json',
             credentials: 'same-origin',
             body: JSON.stringify(data),
         })
@@ -87,6 +87,13 @@ export let dataHandler = {
         this._api_get(`/get-cards`, (response) => {
             this._data = response;
             callback(response);
+        });
+    },
+    deleteBoard: function (boardId, callback) {
+        let data = {'id': boardId};
+        this._api_post('/delete-board', data,(response) => {
+            this._data = response;
+            callback();
         });
     }
 };

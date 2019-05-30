@@ -31,22 +31,22 @@ export let dom = {
     },
     showBoards: function (boards) {
         const boardContainer = document.querySelector('.board-container');
+        boardContainer.textContent = '';
         for (const board of boards) {
             const template = document.querySelector('#board-template');
             const clone = document.importNode(template.content, true);
             clone.querySelectorAll('.board-column-content').forEach(column => column.dataset.boardId = board.id);
-
             clone.querySelector('.board-title').innerHTML = board.title;
             clone.querySelector('.board-add').setAttribute("id", board.id);
             clone.querySelector(".board-toggle").addEventListener('click', dom.boardToggleClicked);
-
+            clone.querySelector('.board-delete').setAttribute("id", board.id);
             boardContainer.appendChild(clone);
             dom.loadCards(parseInt(board.id));
+            dom.deleteBoard(parseInt(board.id));
         }
     },
     loadCards: function (boardId) {
         dataHandler.getCardsByBoardId(boardId, dom.showCards);
-
     },
     showCards: function (cards, boardId) {
         dom.addNewCard(boardId);
@@ -100,6 +100,17 @@ export let dom = {
                 const clone = document.importNode(template.content, true);
                 clone.querySelector('.card-title').textContent = response.title;
                 column.appendChild(clone);
+            }
+        }
+    },
+    deleteBoard: function (boardId) {
+
+        let deleteBoardButtons = document.querySelectorAll('.board-delete');
+        for (let button of deleteBoardButtons) {
+            if (parseInt(button.id) === parseInt(boardId)) {
+                button.addEventListener('click', function () {
+                    dataHandler.deleteBoard(boardId, dom.loadBoards)
+                })
             }
         }
     }
