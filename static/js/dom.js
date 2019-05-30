@@ -38,7 +38,6 @@ export let dom = {
             for (let column of columns) {
                 column.setAttribute("data-board-id", board.id);
             }
-            clone.querySelector('.board').setAttribute("id", board.id);
             clone.querySelector('.board-title').innerHTML = board.title;
             boardContainer.appendChild(clone);
             dom.loadCards(parseInt(board.id));
@@ -66,4 +65,19 @@ export let dom = {
             }
         }
     },
+    addNewBoard: function () {
+
+        let addBoardButton = document.querySelector("#add-new-board");
+        addBoardButton.addEventListener('click', function () {
+            dataHandler.createNewBoard('board', dom.showNewBoard);
+        })
+    },
+    showNewBoard: function(response){
+
+        let boardContainer = document.querySelector('.board-container');
+            const template = document.querySelector('#board-template');
+            const clone = document.importNode(template.content, true);
+            clone.querySelector('.board-title').innerHTML = response.title;
+            boardContainer.appendChild(clone);
+    }
 };
