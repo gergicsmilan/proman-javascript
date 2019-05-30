@@ -31,6 +31,7 @@ export let dom = {
         // it adds necessary event listeners also
 
         let boardContainer = document.querySelector('.board-container');
+
         for (let board of boards) {
             const template = document.querySelector('#board-template');
             const clone = document.importNode(template.content, true);
