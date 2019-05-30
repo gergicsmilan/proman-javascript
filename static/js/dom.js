@@ -32,15 +32,30 @@ export let dom = {
 
         let boardContainer = document.querySelector('.board-container');
         for (let board of boards) {
+
             const template = document.querySelector('#board-template');
             const clone = document.importNode(template.content, true);
             let columns = clone.querySelectorAll('.board-column-content');
             for (let column of columns) {
                 column.setAttribute("data-board-id", board.id);
             }
+
+
             clone.querySelector('.board-title').innerHTML = board.title;
             boardContainer.appendChild(clone);
             dom.loadCards(parseInt(board.id));
+            let toggleBoardButtons = document.getElementsByClassName("board-toggle");
+            let togbor = toggleBoardButtons[0];
+            togbor.addEventListener('click', function () {
+                let boardS = document.getElementsByClassName("board-columns")
+                let boardToToggle = boardS[0];
+                if (boardToToggle.style.display === "none") {
+                    boardToToggle.style.display = "block";
+                } else {
+                    boardToToggle.style.display = "none";
+                }
+                console.log('toggle');
+            });
         }
     },
     loadCards: function (boardId) {
@@ -72,12 +87,12 @@ export let dom = {
             dataHandler.createNewBoard('board', dom.showNewBoard);
         })
     },
-    showNewBoard: function(response){
+    showNewBoard: function (response) {
 
         let boardContainer = document.querySelector('.board-container');
-            const template = document.querySelector('#board-template');
-            const clone = document.importNode(template.content, true);
-            clone.querySelector('.board-title').innerHTML = response.title;
-            boardContainer.appendChild(clone);
+        const template = document.querySelector('#board-template');
+        const clone = document.importNode(template.content, true);
+        clone.querySelector('.board-title').innerHTML = response.title;
+        boardContainer.appendChild(clone);
     }
 };
