@@ -34,6 +34,7 @@ export let dom = {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
 
+
         const boardContainer = document.querySelector('.board-container');
         for (const board of boards) {
             const template = document.querySelector('#board-template');
