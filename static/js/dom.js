@@ -24,8 +24,7 @@ export let dom = {
         // retrieves boards and makes showBoards called
         dataHandler.getBoards(boards => {
             dom.showBoards(boards);
-    })
-        ;
+        });
     },
     showBoards: function (boards) {
         // shows boards appending them to #boards div
@@ -40,9 +39,9 @@ export let dom = {
                 column.setAttribute("data-board-id", board.id);
             }
             clone.querySelector('.board-title').innerHTML = board.title;
+            clone.querySelector('.board-add').setAttribute("id", board.id);
             boardContainer.appendChild(clone);
             dom.loadCards(parseInt(board.id));
-            dom.deleteBoardButtons();
         }
     },
     loadCards: function (boardId) {
@@ -52,6 +51,7 @@ export let dom = {
     },
     showCards: function (cards, boardId) {
 
+        dom.addNewCard(boardId);
         let cardContainer = document.querySelectorAll('.board-column-content');
 
         for (let card of cards) {
@@ -74,23 +74,37 @@ export let dom = {
             dataHandler.createNewBoard('board', dom.showNewBoard);
         })
     },
-    showNewBoard: function (response) {
+    showNewBoard: function(response){
 
         let boardContainer = document.querySelector('.board-container');
-        const template = document.querySelector('#board-template');
-        const clone = document.importNode(template.content, true);
-        clone.querySelector('.board-title').innerHTML = response.title;
-        boardContainer.appendChild(clone);
-        dom.deleteBoardButtons();
+            const template = document.querySelector('#board-template');
+            const clone = document.importNode(template.content, true);
+            clone.querySelector('.board-title').innerHTML = response.title;
+            boardContainer.appendChild(clone);
     },
-    deleteBoardButtons: function () {
+    addNewCard: function (boardId) {
+        let addNewCardButtons = document.querySelectorAll(".board-add");
+        for (let button of addNewCardButtons) {
+            if (parseInt(button.id) === parseInt(boardId)) {
+                button.addEventListener('click', function () {
+                dataHandler.createNewCard("New Card", boardId, 0, dom.showNewCard);
+            });
+        }
+        }
+    },
+    showNewCard: function (response) {
+        //let boardId = response.board_id;
+        let columns = document.querySelectorAll('.board-column-content');
 
-        let deleteBoardButtons = document.querySelectorAll('.board-delete');
-        console.log(deleteBoardButtons);
-        for (let button of deleteBoardButtons) {
-            button.addEventListener('click', function () {
-                dataHandler.deleteBoardById()
-            })
+        for (let column of columns) {
+
+            if (parseInt(response.board_id) === parseInt(column.dataset.boardId) &&
+                parseInt(response.status_id) === parseInt(column.id)) {
+                const template = document.querySelector('#cards-template');
+                const clone = document.importNode(template.content, true);
+                clone.querySelector('.card-title').textContent = response.title;
+                column.appendChild(clone);
+            }
         }
     }
 };
