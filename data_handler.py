@@ -29,3 +29,7 @@ def get_cards():
 
 def add_board(board_title):
     return persistence.add_new_board(board_title)
+
+
+def add_card(card_title, board_id, status_id):
+    return persistence.add_new_card(card_title, board_id, status_id)
