@@ -95,5 +95,12 @@ export let dataHandler = {
             this._data = response;
             callback();
         });
+    },
+    deleteCard: function (id, callback) {
+        let data = {'id': id};
+        this._api_post(`/delete-card`, data, (response) => {
+            this._data = response;
+            callback();
+        });
     }
 };

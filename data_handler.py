@@ -37,3 +37,7 @@ def add_card(card_title, board_id, status_id):
 
 def delete_board(id):
     return persistence.delete_board(id)
+
+
+def delete_card(id):
+    return persistence.delete_card(id)

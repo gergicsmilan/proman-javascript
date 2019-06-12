@@ -58,6 +58,7 @@ export let dom = {
     showCards: function (cards, boardId) {
 
         dom.addNewCard(boardId);
+        dom.deleteCard(cards);
         let cardContainer = document.querySelectorAll('.board-column-content');
 
         for (let card of cards) {
@@ -67,6 +68,7 @@ export let dom = {
                         const template = document.querySelector('#cards-template');
                         const clone = document.importNode(template.content, true);
                         clone.querySelector('.card-title').textContent = card.title;
+                        clone.querySelector('.card').id = card.id;
                         column.appendChild(clone);
                     }
                 }
@@ -125,6 +127,15 @@ export let dom = {
                     dataHandler.deleteBoard(boardId, dom.loadBoards)
                 })
             }
+        }
+    },
+    deleteCard: function (cards) {
+        let deleteCardButtons = document.querySelectorAll('.fa-trash-alt');
+        for (let button of deleteCardButtons) {
+            button.addEventListener('click', function() {
+                const card_id = this.parentElement.parentElement.id
+                dataHandler.deleteCard(card_id, dom.loadBoards);
+            })
         }
     }
 };

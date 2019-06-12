@@ -67,6 +67,14 @@ def delete_board():
     return response_data
 
 
+@app.route('/delete-card', methods=['POST', 'GET'])
+@json_response
+def delete_card():
+    response_data = json.loads(request.data)
+    data_handler.delete_card(response_data['id'])
+    return response_data
+
+
 def main():
     app.run(debug=True)
 
