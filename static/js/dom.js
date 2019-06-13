@@ -127,12 +127,21 @@ export let dom = {
             })
         }
     },
+
     addDragula: function () {
-        console.log();
-        let columnList = document.querySelectorAll('.board-column-content');
-        // console.log(columnList);
-        let columnListArray = Array.from(columnList);
-        dragula(columnListArray).on('drop', dom.get_new_container);
+        var dragulaWatcher = null;
+        dragulaWatcher = setInterval(function () {
+            if (typeof dragula != 'function') return;
+
+            clearInterval(dragulaWatcher);
+            console.log();
+            let columnList = document.querySelectorAll('.board-column-content');
+            // console.log(columnList);
+            let columnListArray = Array.from(columnList);
+
+            dragula(columnListArray).on('drop', dom.get_new_container);
+        }, 500);
+
     },
     get_new_container: function (el) {
         let card = el;
@@ -140,7 +149,7 @@ export let dom = {
         let status_id = new_container.id;
         let card_id = card.id;
         console.log(card_id, status_id);
-        dataHandler.change_status(card_id,status_id);
+        dataHandler.change_status(card_id, status_id);
     }
 
 };
