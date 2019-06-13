@@ -56,9 +56,7 @@ export let dom = {
 
     },
     showCards: function (cards, boardId) {
-
         dom.addNewCard(boardId);
-        dom.deleteCard(cards);
         let cardContainer = document.querySelectorAll('.board-column-content');
 
         for (let card of cards) {
@@ -74,6 +72,7 @@ export let dom = {
                 }
             }
         }
+        dom.initDeleteCardButtons(cards, boardId);
     },
     addNewBoard: function () {
 
@@ -129,8 +128,8 @@ export let dom = {
             }
         }
     },
-    deleteCard: function (cards) {
-        let deleteCardButtons = document.querySelectorAll('.fa-trash-alt');
+    initDeleteCardButtons: function (cards, boardId) {
+        let deleteCardButtons = document.querySelectorAll(`div[data-board-id="${boardId}"] .fa-trash-alt`);
         for (let button of deleteCardButtons) {
             button.addEventListener('click', function() {
                 const card_id = this.parentElement.parentElement.id
