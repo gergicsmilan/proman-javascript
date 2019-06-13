@@ -75,12 +75,20 @@ def delete_card():
     return response_data
 
 
+
 @app.route('/change-status', methods=['POST', 'GET'])
 @json_response
 def change_status():
     response_data = json.loads(request.data)
     print(response_data)
     data_handler.change_status(response_data['id'], response_data['status_id'])
+
+@app.route('/rename-board', methods=['POST', 'GET'])
+@json_response
+def rename_board():
+    response_data = json.loads(request.data)
+    data_handler.rename_board(response_data['id'], response_data['title'])
+
     return response_data
 
 

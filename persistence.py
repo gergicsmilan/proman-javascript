@@ -97,3 +97,14 @@ def change_status(cursor, id, status_id):
                     SET status_id = %(status_id)s
                     WHERE id = %(id)s;
     """, {'id': id, 'status_id': status_id})
+
+@connection.connection_handler
+def rename_board(cursor, board_id, title):
+    cursor.execute("""
+                    UPDATE board
+                    SET title = %(title)s
+                    WHERE id = %(board_id)s;
+                    """,
+                    {'board_id': board_id,
+                    'title': title})
+

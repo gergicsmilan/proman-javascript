@@ -105,6 +105,7 @@ export let dataHandler = {
             callback();
         });
     },
+
     change_status: function (id,status_id){
         console.log(status_id);
         let data = {'id': id,
@@ -114,5 +115,14 @@ export let dataHandler = {
             this._data = response;
 
         });
+
+    updateBoardName: function (boardId, newTitle, callback) {
+        let data = {'id': boardId,
+                    'title': newTitle};
+        this._api_post('/rename-board', data, (response) => {
+            this._data = response;
+            callback();
+        })
+
     }
 };

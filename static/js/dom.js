@@ -37,6 +37,7 @@ export let dom = {
             const clone = document.importNode(template.content, true);
             clone.querySelectorAll('.board-column-content').forEach(column => column.dataset.boardId = board.id);
             clone.querySelector('.board-title').innerHTML = board.title;
+            clone.querySelector('.board-title').addEventListener('click', dom.switchToInput);
             clone.querySelector('.board-add').setAttribute("id", board.id);
             clone.querySelector(".board-toggle").addEventListener('click', dom.boardToggleClicked);
             clone.querySelector('.board-delete').setAttribute("id", board.id);
@@ -128,6 +129,7 @@ export let dom = {
         }
     },
 
+
     addDragula: function () {
         var dragulaWatcher = null;
         dragulaWatcher = setInterval(function () {
@@ -150,6 +152,49 @@ export let dom = {
         let card_id = card.id;
         console.log(card_id, status_id);
         dataHandler.change_status(card_id, status_id);
+
+    switchToInput: function() {
+        let boardHeader = this.parentElement;
+        let originalTitleSpan = boardHeader.querySelector('.board-title');
+        let newInputField = document.createElement('input');
+
+        newInputField.value = originalTitleSpan.textContent;
+        newInputField.classList.add('input-field');
+
+        originalTitleSpan.classList.add('hidden');
+
+        boardHeader.appendChild(newInputField);
+
+        document.addEventListener('keydown', dom.checkKeyDown);
+    },
+
+    checkKeyDown: function(event) {
+        let inputField = document.querySelector('.input-field');
+        let boardHeader = inputField.parentElement;
+        let originalTitleSpan = boardHeader.querySelector('.board-title');
+        let originalTitle = originalTitleSpan.textContent;
+
+        let boardId = parseInt(boardHeader.querySelector('.board-add').id);
+
+        let newTitle;
+
+        if (event.key === "Enter"){
+            newTitle = inputField.value;
+            originalTitleSpan.textContent = newTitle;
+            inputField.remove();
+            originalTitleSpan.classList.remove('hidden');
+            dataHandler.updateBoardName(boardId, newTitle, dom.loadBoards);
+
+        } else if (event.key === "Escape"){
+            newTitle = originalTitle;
+            originalTitleSpan.textContent = newTitle;
+            inputField.remove();
+            originalTitleSpan.classList.remove('hidden');
+
+        } else {
+            //pass
+        };
+
     }
 
 };
