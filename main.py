@@ -75,6 +75,15 @@ def delete_card():
     return response_data
 
 
+@app.route('/change-status', methods=['POST', 'GET'])
+@json_response
+def change_status():
+    response_data = json.loads(request.data)
+    print(response_data)
+    data_handler.change_status(response_data['id'], response_data['status_id'])
+    return response_data
+
+
 def main():
     app.run(debug=True)
 

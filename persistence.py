@@ -36,7 +36,7 @@ def get_cards_for_board(cursor, board_id):
     cursor.execute("""SELECT id, board_id, title, status_id, card_order FROM card
                         WHERE board_id = %(board_id)s;
                         """,
-                        {'board_id': board_id})
+                   {'board_id': board_id})
 
     cards = cursor.fetchall()
     return cards
@@ -88,3 +88,12 @@ def delete_card(cursor, id):
                    WHERE id = %(id)s;
                    """,
                    {'id': id})
+
+
+@connection.connection_handler
+def change_status(cursor, id, status_id):
+    cursor.execute("""
+                    UPDATE card
+                    SET status_id = %(status_id)s
+                    WHERE id = %(id)s;
+    """, {'id': id, 'status_id': status_id})

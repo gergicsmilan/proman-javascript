@@ -43,7 +43,9 @@ export let dom = {
             boardContainer.appendChild(clone);
             dom.loadCards(parseInt(board.id));
             dom.deleteBoard(parseInt(board.id));
+
         }
+        dom.addDragula();
     },
     loadCards: function (boardId) {
         dataHandler.getCardsByBoardId(boardId, dom.showCards);
@@ -126,16 +128,19 @@ export let dom = {
         }
     },
     addDragula: function () {
+        console.log();
         let columnList = document.querySelectorAll('.board-column-content');
-        console.log(columnList);
+        // console.log(columnList);
         let columnListArray = Array.from(columnList);
         dragula(columnListArray).on('drop', dom.get_new_container);
     },
-    get_new_container: function (e) {
-        console.log(e.target);
-        console.log(this);
-        let new_container = this.parentElement;
-        // console.log(new_container);
+    get_new_container: function (el) {
+        let card = el;
+        let new_container = el.parentElement;
+        let status_id = new_container.id;
+        let card_id = card.id;
+        console.log(card_id, status_id);
+        dataHandler.change_status(card_id,status_id);
     }
 
 };
