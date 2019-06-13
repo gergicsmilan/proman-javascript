@@ -37,6 +37,7 @@ export let dom = {
             const clone = document.importNode(template.content, true);
             clone.querySelectorAll('.board-column-content').forEach(column => column.dataset.boardId = board.id);
             clone.querySelector('.board-title').innerHTML = board.title;
+            clone.querySelector('.board-title').addEventListener('click', dom.switchToInput);
             clone.querySelector('.board-add').setAttribute("id", board.id);
             clone.querySelector(".board-toggle").addEventListener('click', dom.boardToggleClicked);
             clone.querySelector('.board-delete').setAttribute("id", board.id);
@@ -124,5 +125,59 @@ export let dom = {
                 dataHandler.deleteCard(card_id, dom.loadBoards);
             })
         }
+    },
+    switchToInput: function() {
+        let boardHeader = this.parentElement;
+        let originalTitleSpan = boardHeader.querySelector('.board-title');
+
+        let newInputField = document.createElement('input');
+        newInputField.value = originalTitleSpan.textContent;
+        newInputField.classList.add('input-field');
+
+        originalTitleSpan.replaceWith(newInputField);
     }
 };
+
+    /*createInputField: function (){
+        const boardHeader = this.parentElement;
+
+        const inputField = document.createElement('input');
+        inputField.value = this.textContent;
+        inputField.classList.add('rename-board');
+        this.replaceWith(inputField);
+
+        const saveButton = document.createElement('button');
+        saveButton.classList.add('save-button');
+        saveButton.innerText = 'Save';
+        boardHeader.appendChild(saveButton);
+
+        dom.saveNewBoardName(boardHeader);
+    },
+    saveNewBoardName: function(boardHeader) {
+
+        const boardId = boardHeader.querySelector('.board-add').id;
+
+        const saveButton = boardHeader.querySelector('.save-button');
+        console.log(saveButton);
+
+        //saveButton.addEventListener('click', dom.saveTitleToDatabase(boardHeader));
+        saveButton.addEventListener('click', console.log('kiscica'));
+    },
+    saveTitleToDatabase: function(boardHeader) {
+        const inputField = document.querySelector('.rename-board');
+        const newTitle = inputField.value;
+
+        const newSpan = document.createElement('span');
+        newSpan.classList.add('board-title');
+        newSpan.textContent = newTitle;
+
+        let input = boardHeader.querySelector('.rename-board');
+        input.replaceWith(newSpan);
+
+        console.log(boardHeader);
+
+        dataHandler.updateBoardName(boardId, newTitle, function(){
+            pass
+        });
+    }
+};*/

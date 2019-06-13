@@ -102,5 +102,8 @@ export let dataHandler = {
             this._data = response;
             callback();
         });
+    },
+    updateBoardName: function () {
+
     }
 };

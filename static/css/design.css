@@ -142,3 +142,21 @@ section.board{
 .hidden{
     display: none;
 }
+
+.board-add {
+    margin: 13px;
+}
+
+.rename-board {
+    margin: 13px;
+}
+
+.save-button {
+    float: left;
+    margin: 13px;
+
+}
+
+.input-field {
+    margin: 13px;
+}
