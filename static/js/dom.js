@@ -59,11 +59,13 @@ export let dom = {
                         const template = document.querySelector('#cards-template');
                         const clone = document.importNode(template.content, true);
                         clone.querySelector('.card-title').textContent = card.title;
+                        clone.querySelector('.card').id = card.id;
                         column.appendChild(clone);
                     }
                 }
             }
         }
+        dom.initDeleteCardButtons(cards, boardId);
     },
     addNewBoard: function () {
         let addBoardButton = document.querySelector("#add-new-board-btn");
@@ -112,6 +114,15 @@ export let dom = {
                     dataHandler.deleteBoard(boardId, dom.loadBoards)
                 })
             }
+        }
+    },
+    initDeleteCardButtons: function (cards, boardId) {
+        let deleteCardButtons = document.querySelectorAll(`div[data-board-id="${boardId}"] .fa-trash-alt`);
+        for (let button of deleteCardButtons) {
+            button.addEventListener('click', function() {
+                const card_id = this.parentElement.parentElement.id
+                dataHandler.deleteCard(card_id, dom.loadBoards);
+            })
         }
     }
 };
