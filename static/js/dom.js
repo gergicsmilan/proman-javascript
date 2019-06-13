@@ -119,10 +119,23 @@ export let dom = {
     initDeleteCardButtons: function (cards, boardId) {
         let deleteCardButtons = document.querySelectorAll(`div[data-board-id="${boardId}"] .fa-trash-alt`);
         for (let button of deleteCardButtons) {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 const card_id = this.parentElement.parentElement.id
                 dataHandler.deleteCard(card_id, dom.loadBoards);
             })
         }
+    },
+    addDragula: function () {
+        let columnList = document.querySelectorAll('.board-column-content');
+        console.log(columnList);
+        let columnListArray = Array.from(columnList);
+        dragula(columnListArray).on('drop', dom.get_new_container);
+    },
+    get_new_container: function (e) {
+        console.log(e.target);
+        console.log(this);
+        let new_container = this.parentElement;
+        // console.log(new_container);
     }
+
 };
