@@ -129,8 +129,8 @@ export let dom = {
     switchToInput: function() {
         let boardHeader = this.parentElement;
         let originalTitleSpan = boardHeader.querySelector('.board-title');
-
         let newInputField = document.createElement('input');
+
         newInputField.value = originalTitleSpan.textContent;
         newInputField.classList.add('input-field');
 
@@ -147,6 +147,8 @@ export let dom = {
         let originalTitleSpan = boardHeader.querySelector('.board-title');
         let originalTitle = originalTitleSpan.textContent;
 
+        let boardId = parseInt(boardHeader.querySelector('.board-add').id);
+
         let newTitle;
 
         if (event.key === "Enter"){
@@ -154,6 +156,7 @@ export let dom = {
             originalTitleSpan.textContent = newTitle;
             inputField.remove();
             originalTitleSpan.classList.remove('hidden');
+            dataHandler.updateBoardName(boardId, newTitle, dom.loadBoards);
 
         } else if (event.key === "Escape"){
             newTitle = originalTitle;
@@ -162,55 +165,7 @@ export let dom = {
             originalTitleSpan.classList.remove('hidden');
 
         } else {
-            newTitle = originalTitle;
+            //pass
         };
-
-
-
-
     }
 };
-
-    /*createInputField: function (){
-        const boardHeader = this.parentElement;
-
-        const inputField = document.createElement('input');
-        inputField.value = this.textContent;
-        inputField.classList.add('rename-board');
-        this.replaceWith(inputField);
-
-        const saveButton = document.createElement('button');
-        saveButton.classList.add('save-button');
-        saveButton.innerText = 'Save';
-        boardHeader.appendChild(saveButton);
-
-        dom.saveNewBoardName(boardHeader);
-    },
-    saveNewBoardName: function(boardHeader) {
-
-        const boardId = boardHeader.querySelector('.board-add').id;
-
-        const saveButton = boardHeader.querySelector('.save-button');
-        console.log(saveButton);
-
-        //saveButton.addEventListener('click', dom.saveTitleToDatabase(boardHeader));
-        saveButton.addEventListener('click', console.log('kiscica'));
-    },
-    saveTitleToDatabase: function(boardHeader) {
-        const inputField = document.querySelector('.rename-board');
-        const newTitle = inputField.value;
-
-        const newSpan = document.createElement('span');
-        newSpan.classList.add('board-title');
-        newSpan.textContent = newTitle;
-
-        let input = boardHeader.querySelector('.rename-board');
-        input.replaceWith(newSpan);
-
-        console.log(boardHeader);
-
-        dataHandler.updateBoardName(boardId, newTitle, function(){
-            pass
-        });
-    }
-};*/

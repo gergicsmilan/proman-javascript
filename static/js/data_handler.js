@@ -103,7 +103,12 @@ export let dataHandler = {
             callback();
         });
     },
-    updateBoardName: function () {
-
+    updateBoardName: function (boardId, newTitle, callback) {
+        let data = {'id': boardId,
+                    'title': newTitle};
+        this._api_post('/rename-board', data, (response) => {
+            this._data = response;
+            callback();
+        })
     }
 };

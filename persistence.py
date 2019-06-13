@@ -88,3 +88,13 @@ def delete_card(cursor, id):
                    WHERE id = %(id)s;
                    """,
                    {'id': id})
+
+@connection.connection_handler
+def rename_board(cursor, board_id, title):
+    cursor.execute("""
+                    UPDATE board
+                    SET title = %(title)s
+                    WHERE id = %(board_id)s;
+                    """,
+                    {'board_id': board_id,
+                    'title': title})

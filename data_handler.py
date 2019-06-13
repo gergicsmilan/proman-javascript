@@ -41,3 +41,7 @@ def delete_board(id):
 
 def delete_card(id):
     return persistence.delete_card(id)
+
+
+def rename_board(board_id, title):
+    return persistence.rename_board(board_id, title)
