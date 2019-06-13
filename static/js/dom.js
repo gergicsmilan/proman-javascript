@@ -134,7 +134,40 @@ export let dom = {
         newInputField.value = originalTitleSpan.textContent;
         newInputField.classList.add('input-field');
 
-        originalTitleSpan.replaceWith(newInputField);
+        originalTitleSpan.classList.add('hidden');
+
+        boardHeader.appendChild(newInputField);
+
+        document.addEventListener('keydown', dom.checkKeyDown);
+    },
+
+    checkKeyDown: function(event) {
+        let inputField = document.querySelector('.input-field');
+        let boardHeader = inputField.parentElement;
+        let originalTitleSpan = boardHeader.querySelector('.board-title');
+        let originalTitle = originalTitleSpan.textContent;
+
+        let newTitle;
+
+        if (event.key === "Enter"){
+            newTitle = inputField.value;
+            originalTitleSpan.textContent = newTitle;
+            inputField.remove();
+            originalTitleSpan.classList.remove('hidden');
+
+        } else if (event.key === "Escape"){
+            newTitle = originalTitle;
+            originalTitleSpan.textContent = newTitle;
+            inputField.remove();
+            originalTitleSpan.classList.remove('hidden');
+
+        } else {
+            newTitle = originalTitle;
+        };
+
+
+
+
     }
 };
 

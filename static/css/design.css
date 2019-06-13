@@ -159,4 +159,5 @@ section.board{
 
 .input-field {
     margin: 13px;
+    float: left;
 }
