@@ -106,15 +106,17 @@ export let dataHandler = {
         });
     },
 
-    change_status: function (id,status_id){
+    change_status: function (id,status_id) {
         console.log(status_id);
-        let data = {'id': id,
-                    'status_id': status_id
-                    };
+        let data = {
+            'id': id,
+            'status_id': status_id
+        };
         this._api_post(`/change-status`, data, (response) => {
             this._data = response;
 
         });
+    },
 
     updateBoardName: function (boardId, newTitle, callback) {
         let data = {'id': boardId,

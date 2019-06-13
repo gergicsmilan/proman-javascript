@@ -152,6 +152,7 @@ export let dom = {
         let card_id = card.id;
         console.log(card_id, status_id);
         dataHandler.change_status(card_id, status_id);
+    },
 
     switchToInput: function() {
         let boardHeader = this.parentElement;
