@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, request, json
-from util import json_response
+from util import json_response, hash_password
 
 import data_handler
 
@@ -75,13 +75,13 @@ def delete_card():
     return response_data
 
 
-
 @app.route('/change-status', methods=['POST', 'GET'])
 @json_response
 def change_status():
     response_data = json.loads(request.data)
     print(response_data)
     data_handler.change_status(response_data['id'], response_data['status_id'])
+
 
 @app.route('/rename-board', methods=['POST', 'GET'])
 @json_response
@@ -90,6 +90,15 @@ def rename_board():
     data_handler.rename_board(response_data['id'], response_data['title'])
 
     return response_data
+
+
+@app.route('/reg', methods=["POST"])
+@json_response
+def reg():
+    reg_data = json.loads(request.data)
+    hashed = hash_password(reg_data['password'])
+    data_handler.addNewUser(reg_data['username'], hashed)
+    return reg_data
 
 
 def main():

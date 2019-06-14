@@ -43,10 +43,13 @@ def delete_card(id):
     return persistence.delete_card(id)
 
 
-
 def change_status( id, status_id):
     return persistence.change_status( id, status_id)
 
 def rename_board(board_id, title):
     return persistence.rename_board(board_id, title)
+
+
+def addNewUser(username, password):
+    return persistence.addNewUser(username, password)
 

@@ -98,6 +98,7 @@ def change_status(cursor, id, status_id):
                     WHERE id = %(id)s;
     """, {'id': id, 'status_id': status_id})
 
+
 @connection.connection_handler
 def rename_board(cursor, board_id, title):
     cursor.execute("""
@@ -108,3 +109,10 @@ def rename_board(cursor, board_id, title):
                     {'board_id': board_id,
                     'title': title})
 
+
+@connection.connection_handler
+def addNewUser(cursor, username, password):
+    cursor.execute("""
+    INSERT INTO users (username, password) VALUES(%(username)s, %(password)s);
+    """,
+    {'username': username, 'password': password})

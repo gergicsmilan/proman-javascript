@@ -3,6 +3,15 @@ ALTER TABLE IF EXISTS ONLY public.card DROP CONSTRAINT IF EXISTS pk_card_id CASC
 ALTER TABLE IF EXISTS ONLY public.status DROP CONSTRAINT IF EXISTS pk_status_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.card DROP CONSTRAINT IF EXISTS fk_board_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.card DROP CONSTRAINT IF EXISTS fk_status_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.users DROP CONSTRAINT IF EXISTS pk_users_idd CASCADE;
+
+DROP TABLE IF EXISTS public.users;
+DROP SEQUENCE IF EXISTS public.users_id_seq;
+CREATE TABLE users(
+    id serial NOT NULL,
+    username text,
+    password text
+);
 
 
 DROP TABLE IF EXISTS public.board;
@@ -31,6 +40,8 @@ CREATE TABLE status(
     title text
 );
 
+ALTER TABLE ONLY users
+    ADD CONSTRAINT pk_users_id PRIMARY KEY (id);
 
 ALTER TABLE ONLY board
     ADD CONSTRAINT pk_board_id PRIMARY KEY (id);
@@ -71,5 +82,8 @@ INSERT INTO card VALUES (10, 2, 'planning', 2, 0);
 INSERT INTO card VALUES (11, 2, 'done card', 3, 0);
 INSERT INTO card VALUES (12, 2, 'done card', 3, 1);
 SELECT pg_catalog.setval('card_id_seq', 13, true);
+
+INSERT INTO users VALUES (0, 'admin', '$2b$12$3.zHaCLsED7YFXBXIOhB2eHLVGBBfXUlQXurKynGhINca6FObgrwi');
+SELECT pg_catalog.setval('users_id_seq', 1, true);
 
 

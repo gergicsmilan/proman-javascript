@@ -126,5 +126,12 @@ export let dataHandler = {
             callback();
         })
 
+    },
+    reg: function (dict, callback) {
+        this._api_post('/reg', dict, (response) => {
+            this._data = response;
+            callback(response);
+        })
     }
+
 };
