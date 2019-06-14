@@ -67,7 +67,6 @@ def delete_board():
     return response_data
 
 
-<<<<<<< HEAD
 @app.route('/delete-card', methods=['POST', 'GET'])
 @json_response
 def delete_card():
@@ -82,7 +81,8 @@ def rename_board():
     response_data = json.loads(request.data)
     data_handler.rename_board(response_data['id'], response_data['title'])
     return response_data
-=======
+
+
 @app.route('/reg', methods=["POST"])
 @json_response
 def reg():
@@ -90,7 +90,6 @@ def reg():
     hashed = hash_password(reg_data['password'])
     data_handler.addNewUser(reg_data['username'], hashed)
     return reg_data
->>>>>>> user_reg
 
 
 def main():

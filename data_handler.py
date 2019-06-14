@@ -39,14 +39,14 @@ def delete_board(id):
     return persistence.delete_board(id)
 
 
-<<<<<<< HEAD
 def delete_card(id):
     return persistence.delete_card(id)
 
 
 def rename_board(board_id, title):
     return persistence.rename_board(board_id, title)
-=======
+
+
 def addNewUser(username, password):
     return persistence.addNewUse(username, password)
->>>>>>> user_reg
+

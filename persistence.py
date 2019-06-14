@@ -82,7 +82,6 @@ def delete_board(cursor, board_id):
 
 
 @connection.connection_handler
-<<<<<<< HEAD
 def delete_card(cursor, id):
     cursor.execute("""
                    DELETE FROM card
@@ -99,13 +98,9 @@ def rename_board(cursor, board_id, title):
                     """,
                     {'board_id': board_id,
                     'title': title})
-=======
+
 def addNewUse(cursor, username, password):
     cursor.execute("""
     INSERT INTO users (username, password) VALUES(%(username)s, %(password)s);
     """,
     {'username': username, 'password': password})
-
-
-
->>>>>>> user_reg
