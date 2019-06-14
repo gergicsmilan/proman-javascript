@@ -79,3 +79,14 @@ def delete_board(cursor, board_id):
                    WHERE id = %(board_id)s;
                    """,
                    {'board_id': board_id})
+
+
+@connection.connection_handler
+def addNewUse(cursor, username, password):
+    cursor.execute("""
+    INSERT INTO users (username, password) VALUES(%(username)s, %(password)s);
+    """,
+    {'username': username, 'password': password})
+
+
+

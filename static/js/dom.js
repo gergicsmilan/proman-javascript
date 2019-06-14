@@ -113,5 +113,19 @@ export let dom = {
                 })
             }
         }
+    },
+    userReg: function () {
+        const signUp = document.querySelector('#sign-up');
+        // const navLogin = document.querySelector('#nav-login');
+        // const navReg = document.querySelector('#nav-reg');
+        const regUsername = document.querySelector('#reg-username');
+        const regPw = document.querySelector('#reg-user-pass');
+        signUp.addEventListener('click', function () {
+            const data = {'username': regUsername.value, 'password': regPw.value};
+            dataHandler.reg(data, dom.newUserResp);
+            document.querySelector('#sign-up').setAttribute('data-dismiss', 'modal');
+        })
+    },
+    newUserResp: function (resp) {
     }
 };

@@ -13,8 +13,8 @@ export let dataHandler = {
             method: 'GET',
             credentials: 'same-origin'
         })
-        .then(response => response.json())  // parse the response as JSON
-        .then(json_response => callback(json_response));  // Call the `callback` with the returned object
+            .then(response => response.json())  // parse the response as JSON
+            .then(json_response => callback(json_response));  // Call the `callback` with the returned object
     },
     _api_post: function (url, data, callback) {
 
@@ -27,8 +27,8 @@ export let dataHandler = {
             credentials: 'same-origin',
             body: JSON.stringify(data),
         })
-        .then(response => response.json())
-        .then(json_response => callback(json_response));
+            .then(response => response.json())
+            .then(json_response => callback(json_response));
     },
     init: function () {
     },
@@ -73,9 +73,11 @@ export let dataHandler = {
     },
     createNewCard: function (cardTitle, boardId, statusId, callback) {
         // creates new card, saves it and calls the callback function with its data
-        let data = {'title': cardTitle,
-                    'board_id': boardId,
-                    'status_id': statusId};
+        let data = {
+            'title': cardTitle,
+            'board_id': boardId,
+            'status_id': statusId
+        };
 
         this._api_post('/post-new-card', data, (response) => {
             this._data = response;
@@ -91,9 +93,15 @@ export let dataHandler = {
     },
     deleteBoard: function (boardId, callback) {
         let data = {'id': boardId};
-        this._api_post('/delete-board', data,(response) => {
+        this._api_post('/delete-board', data, (response) => {
             this._data = response;
             callback();
         });
+    }, reg: function (dict, callback) {
+        this._api_post('/reg', dict, (response) => {
+            this._data = response;
+            callback(response);
+        })
     }
+
 };
