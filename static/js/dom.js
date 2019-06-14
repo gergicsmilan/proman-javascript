@@ -166,8 +166,7 @@ export let dom = {
 
         } else {
             //pass
-        }
-        ;
+        };
     },
     userReg: function () {
         const signUp = document.querySelector('#sign-up');

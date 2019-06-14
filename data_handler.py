@@ -48,5 +48,5 @@ def rename_board(board_id, title):
 
 
 def addNewUser(username, password):
-    return persistence.addNewUse(username, password)
+    return persistence.addNewUser(username, password)
 

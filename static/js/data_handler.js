@@ -97,7 +97,7 @@ export let dataHandler = {
             this._data = response;
             callback();
         });
-<<<<<<< HEAD
+
     },
     deleteCard: function (id, callback) {
         let data = {'id': id};
@@ -108,17 +108,18 @@ export let dataHandler = {
     },
     updateBoardName: function (boardId, newTitle, callback) {
         let data = {'id': boardId,
-                    'title': newTitle};
+            'title': newTitle};
         this._api_post('/rename-board', data, (response) => {
             this._data = response;
             callback();
-=======
-    }, reg: function (dict, callback) {
+
+        })
+    },
+    reg: function (dict, callback) {
         this._api_post('/reg', dict, (response) => {
             this._data = response;
             callback(response);
->>>>>>> user_reg
+
         })
     }
-
 };
