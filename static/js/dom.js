@@ -55,18 +55,19 @@ export let dom = {
         dom.addNewCard(boardId);
         let cardContainer = document.querySelectorAll('.board-column-content');
 
-        for (let card of cards) {
-            if (parseInt(boardId) === parseInt(card.board_id)) {
-                for (let column of cardContainer) {
-                    if (parseInt(card.status_id) === parseInt(column.id) && parseInt(card.board_id) === parseInt(column.dataset.boardId)) {
-                        const template = document.querySelector('#cards-template');
-                        const clone = document.importNode(template.content, true);
-                        clone.querySelector('.card-title').textContent = card.title;
-                        clone.querySelector('.card').id = card.id;
-                        column.appendChild(clone);
-                    }
+        const currentCards = cards.filter(card => parseInt(boardId) === parseInt(card.board_id));
+
+        for (let card of currentCards) {
+            for (let column of cardContainer) {
+                if (parseInt(card.status_id) === parseInt(column.id) && parseInt(card.board_id) === parseInt(column.dataset.boardId)) {
+                    const template = document.querySelector('#cards-template');
+                    const clone = document.importNode(template.content, true);
+                    clone.querySelector('.card-title').textContent = card.title;
+                    clone.querySelector('.card').id = card.id;
+                    column.appendChild(clone);
                 }
             }
+
         }
         dom.initDeleteCardButtons(cards, boardId);
     },
@@ -134,7 +135,6 @@ export let dom = {
             if (typeof dragula != 'function') return;
 
             clearInterval(dragulaWatcher);
-            console.log();
             let columnList = document.querySelectorAll('.board-column-content');
             // console.log(columnList);
             let columnListArray = Array.from(columnList);
@@ -148,11 +148,10 @@ export let dom = {
         let new_container = el.parentElement;
         let status_id = new_container.id;
         let card_id = card.id;
-        console.log(card_id, status_id);
         dataHandler.change_status(card_id, status_id);
     },
 
-    switchToInput: function() {
+    switchToInput: function () {
         let boardHeader = this.parentElement;
         let originalTitleSpan = boardHeader.querySelector('.board-title');
         let newInputField = document.createElement('input');
@@ -166,7 +165,7 @@ export let dom = {
 
         document.addEventListener('keydown', dom.checkKeyDown);
     },
-    checkKeyDown: function(event) {
+    checkKeyDown: function (event) {
         let inputField = document.querySelector('.input-field');
         let boardHeader = inputField.parentElement;
         let originalTitleSpan = boardHeader.querySelector('.board-title');
@@ -190,8 +189,8 @@ export let dom = {
             originalTitleSpan.classList.remove('hidden');
 
         } else {
-            //pass
-        };
+            return
+        }
     },
     userReg: function () {
         const signUp = document.querySelector('#sign-up');

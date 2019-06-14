@@ -107,7 +107,6 @@ export let dataHandler = {
     },
 
     change_status: function (id,status_id) {
-        console.log(status_id);
         let data = {
             'id': id,
             'status_id': status_id

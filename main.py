@@ -79,7 +79,6 @@ def delete_card():
 @json_response
 def change_status():
     response_data = json.loads(request.data)
-    print(response_data)
     data_handler.change_status(response_data['id'], response_data['status_id'])
 
 
