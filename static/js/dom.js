@@ -151,14 +151,14 @@ export let dom = {
 
         let newTitle;
 
-        if (event.key === "Enter"){
+        if (event.key === "Enter") {
             newTitle = inputField.value;
             originalTitleSpan.textContent = newTitle;
             inputField.remove();
             originalTitleSpan.classList.remove('hidden');
             dataHandler.updateBoardName(boardId, newTitle, dom.loadBoards);
 
-        } else if (event.key === "Escape"){
+        } else if (event.key === "Escape") {
             newTitle = originalTitle;
             originalTitleSpan.textContent = newTitle;
             inputField.remove();
@@ -166,6 +166,21 @@ export let dom = {
 
         } else {
             //pass
-        };
+        }
+        ;
+    },
+    userReg: function () {
+        const signUp = document.querySelector('#sign-up');
+        // const navLogin = document.querySelector('#nav-login');
+        // const navReg = document.querySelector('#nav-reg');
+        const regUsername = document.querySelector('#reg-username');
+        const regPw = document.querySelector('#reg-user-pass');
+        signUp.addEventListener('click', function () {
+            const data = {'username': regUsername.value, 'password': regPw.value};
+            dataHandler.reg(data, dom.newUserResp);
+            document.querySelector('#sign-up').setAttribute('data-dismiss', 'modal');
+        })
+    },
+    newUserResp: function (resp) {
     }
 };
